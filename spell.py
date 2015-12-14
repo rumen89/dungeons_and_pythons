@@ -3,7 +3,7 @@ from hero import Hero
 
 class Spell:
 
-    def __init__(self, name='Fireball', damage=30, mana_cost=50, cast_rang=2):
+    def __init__(self, name='Fireball', damage=30, mana_cost=50, cast_range=2):
         self._name = name
         self._damage = damage
         self._mana_cost = mana_cost
@@ -19,7 +19,4 @@ class Spell:
         return self._mana_cost
 
     def get_cast_rang(self):
-        return self._cast_rang
-
-    def decrease_mana(self):
-        mana = hero.get_mana():
+        return self._cast_range
