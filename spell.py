@@ -22,4 +22,4 @@ class Spell:
         return self._cast_rang
 
     def decrease_mana(self):
-        mana = hero.get_mana():
+        mana = hero.get_mana()
