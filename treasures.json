@@ -1,0 +1,25 @@
+{
+  "treasures": [{
+    "mana": [{
+      "name": "Low mana potion",
+      "mp": 20
+    }]
+  }, {
+    "health": [{
+      "name": "Low health potion",
+      "hp": 20
+    }]
+  }, {
+    "spells": [{
+      "name": "Frost bolt",
+      "damage": 35,
+      "mana_cost": 40,
+      "cast_range": 2
+    }]
+  }, {
+    "weapons": [{
+      "name": "Excalibur",
+      "damage": 100000000
+    }]
+  }]
+}
