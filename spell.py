@@ -7,7 +7,7 @@ class Spell:
         self._name = name
         self._damage = damage
         self._mana_cost = mana_cost
-        self._cast_rang = cast_rang
+        self._cast_range = cast_range
 
     def get_name(self):
         return self._name
@@ -18,7 +18,7 @@ class Spell:
     def get_mana_cost(self):
         return self._mana_cost
 
-    def get_cast_rang(self):
+    def get_cast_range(self):
 
         return self._cast_range
 
