@@ -1,0 +1,26 @@
+class Dungeon:
+
+    def __init__(self, file):
+        self._file = file
+
+    def print_map(self):
+        dungeon = self._read_file()
+
+        return dungeon
+
+    def spawn(self):
+        pass
+
+    def move_hero(self, direction):
+        pass
+
+    def _read_file(self):
+        dungeon = []
+
+        dungeon = [line.strip() for line in open(self._file, 'r')]
+        return dungeon
+
+
+a = Dungeon('level1.txt')
+
+print(a.print_map())

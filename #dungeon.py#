@@ -140,7 +140,7 @@ class Dungeon:
                     self.y -= 1
                     print("True")
                 if self.matrix[self.x][self.y - 1] == "T":
-                    self.matrix[self.x] = self.matrix[self.x ]\
+                    self.matrix[self.x] = self.matrix[self.x]\
                         .replace(self.matrix[self.x][self.y], ".", 1)
                     self.matrix[self.x] = self.matrix[self.x].replace(
                         self.matrix[self.x][self.y - 1], "H", 1)

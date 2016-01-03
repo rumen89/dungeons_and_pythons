@@ -1,6 +1,5 @@
 from character import Character
 from termcolor import colored
-from dungeon import Dungeon
 
 
 class Hero(Character):
