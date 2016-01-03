@@ -22,11 +22,16 @@ class Dungeon:
             f.write(map)
 
     def print_map(self):
-        with open(self.__file, 'r') as f:
-            map = f.read()
 
-        print(map)
-        return map
+        for f in self.matrix:
+            print(f[:-1])
+
+    # def print_map(self):
+    #     with open(self.__file, 'r') as f:
+    #         map = f.read()
+
+    #     print(map)
+    #     return map
 
     # def __find_free_psition(self, coordinates=(0, 0)):
     #     map = self.__read_file()
@@ -50,9 +55,12 @@ class Dungeon:
         return False
 
     def spawn(self, hero):
-        map = self.__read_file()
+        matrix = self.__read_file()
 
-        hero_position = self.__find_hero_position
+        hero_position = self.__find_hero_position()
+
+        self.x = hero_position[0]
+        self.y = hero_position[1]
 
         for i in range(hero_position[0], len(map)):
             for j in range(hero_position[1], len(map[0])):
@@ -60,26 +68,23 @@ class Dungeon:
                     map[i][j] = 'H'
                     hero.set_x_position(i)
                     hero.set_y_position(j)
-                    mar[hero_position[0]][hero_position[1]]
+                    map[hero_position[0]][hero_position[1]]
+                    print(map)
                     return True
 
         return False
 
-        def move_hero(self, direction):
-            if direction == "right":
-                if self.len_column > self.x:
-                    if self.matrix[self.x][self.y + 1] == "#":
-                        print("False")
+    def move_hero(self, direction):
+        if direction == "right":
+            if self.len_column > self.x:
+                if self.matrix[self.x][self.y + 1] == "#":
+                    print("False")
 
                 if self.matrix[self.x][self.y + 1] == ".":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-
                     self.matrix[self.x] = self.matrix[self.x].replace(
                         self.matrix[self.x][self.y + 1], "H", 1)
-
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y], ".", 1)
+                    self.matrix[self.x] = self.matrix[self.x]\
+                        .replace(self.matrix[self.x][self.y], ".", 1)
                     self.y += 1
                     print("True")
                 if self.matrix[self.x][self.y + 1] == "T":
@@ -140,7 +145,7 @@ class Dungeon:
                     self.y -= 1
                     print("True")
                 if self.matrix[self.x][self.y - 1] == "T":
-                    self.matrix[self.x] = self.matrix[self.x ]\
+                    self.matrix[self.x] = self.matrix[self.x]\
                         .replace(self.matrix[self.x][self.y], ".", 1)
                     self.matrix[self.x] = self.matrix[self.x].replace(
                         self.matrix[self.x][self.y - 1], "H", 1)
@@ -182,18 +187,15 @@ class Dungeon:
         # print(self.matrix)
 
     def map_size(self):
-        data = open(self.filename, 'r')
+        data = open(self.__file, 'r')
         self.matrix = data.readlines()
         self.len_row = len(self.matrix)
         self.len_column = len(self.matrix[0]) - 1
         data.close()
 
     def map_into_list(self):
-        with open(self.filename, 'r') as f:
+        with open(self.__file, 'r') as f:
             string = f.read()
         string = string.split('\n')
         string = string[:-1]
         print()
-# dungeon_matrix = []
-# dungeon_matrix = [line.strip() for line in open(self.filename, 'r')]
-# return dungeon_matrix

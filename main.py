@@ -6,6 +6,8 @@ def main():
 
     h = Hero()
     map = Dungeon('level1.txt')
+    map.map_size()
+    map.spawn(h)
 
     map.print_map()
 
