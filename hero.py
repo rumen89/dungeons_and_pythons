@@ -5,7 +5,8 @@ from dungeon import Dungeon
 
 class Hero(Character):
 
-    def __init__(self, name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2):
+    def __init__(self, name="Bron", title="Dragonslayer",
+                 health=100, mana=100, mana_regeneration_rate=2):
         super(Hero, self).__init__(health, mana)
         self.__max_mana = mana
         self.__name = name
@@ -23,17 +24,27 @@ class Hero(Character):
 
     def attack(self, by):
         if by == "weapon":
-            print(colored(self.known_as(), "green", attrs=['bold']), "is attacking with", colored(str(self.get_weapon()), "cyan", attrs=['bold']),
-                  "for", colored(int(self.get_weapon()), "red", attrs=['bold']), "dmg")
+            print(colored(self.known_as(), "green", attrs=['bold']),
+                  "is attacking with", colored(str(self.get_weapon()), "cyan",
+                                               attrs=['bold']), "for",
+                  colored(int(self.get_weapon()),
+                          "red", attrs=['bold']), "dmg")
             return int(self.get_weapon())
         elif by == "spell":
-            if self.__spell_attack() == False:
-                print(colored(self.known_as(), 'green', attrs=['bold']), "does not have enough", colored("mana", 'blue', attrs=['bold']), "for another",
-                      colored(self.get_spell().get_name(), "yellow", attrs=['bold']))
+            if self.__spell_attack() is False:
+                print(colored(self.known_as(), 'green', attrs=['bold']),
+                      "does not have enough",
+                      colored("mana", 'blue', attrs=['bold']), "for another",
+                      colored(self.get_spell().get_name(), "yellow",
+                              attrs=['bold']))
                 return self.attack("weapon")
             else:
-                print(colored(self.known_as(), "green", attrs=['bold']), "is attacking with", colored(self.get_spell().get_name(), "yellow", attrs=['bold']),
-                      "for", colored(self.get_spell().get_damage(), "red", attrs=['bold']), "dmg")
+                print(colored(self.known_as(), "green", attrs=['bold']),
+                      "is attacking with",
+                      colored(self.get_spell().get_name(), "yellow",
+                              attrs=['bold']), "for",
+                      colored(self.get_spell().get_damage(), "red",
+                              attrs=['bold']), "dmg")
                 return self.get_spell().get_damage()
         else:
             raise Exception("Illegal attack method")

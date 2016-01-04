@@ -1,6 +1,3 @@
-from hero import Hero
-
-
 class Spell:
 
     def __init__(self, name='Fireball', damage=30, mana_cost=50, cast_range=2):

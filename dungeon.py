@@ -1,3 +1,6 @@
+from random import randint
+
+
 class Dungeon:
     def __init__(self, file):
         self.__file = file
@@ -66,6 +69,7 @@ class Dungeon:
         return False
 
     def spawn(self, hero):
+        self.__hero = hero
         hero_position = self.__find_hero_position()
 
         self.__x = hero_position[0]
@@ -138,6 +142,7 @@ class Dungeon:
                 self.__level_map[self.__x + 1][self.__y] = 'H'
                 self.__x += 1
                 print('Found Treasure')
+                self.add_treasure(self.__pick_treasure())
         elif direction == 'left':
             if self.__y - 1 < 0:
                 print('False')
@@ -155,3 +160,20 @@ class Dungeon:
                 print('Found Treasure')
         else:
             print('False')
+
+    def __pick_treasure(self):
+        list_treasure = ["mana", "health potion", "weapon", "spell"]
+
+        index = randint(0, len(list_treasure) - 1)
+
+        return list_treasure[index]
+
+    def add_treasure(self, treasure):
+        if treasure == 'health potion':
+            self.__hero.take_healing(100)
+            print('Found health potion. Hero health is max.')
+        elif treasure == 'mana':
+            self.__hero.take_mana(100)
+            print('Found mana potion. Hero mana is max.')
+        elif treasure == 'weapon':
+            pass
