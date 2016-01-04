@@ -1,6 +1,9 @@
 class Dungeon:
     def __init__(self, file):
         self.__file = file
+        self.__level_map = self.__read_file()
+        self.__x = 0
+        self.__y = 0
 
     def __read_file(self):
         with open(self.__file, 'r') as f:
@@ -21,10 +24,18 @@ class Dungeon:
         with open(self.__file, 'w') as f:
             f.write(map)
 
-    def print_map(self):
+    def __map_to_string(self):
+        result = ''
 
-        for f in self.matrix:
-            print(f[:-1])
+        for line in self.__level_map:
+            for ch in line:
+                result += ch
+            result += '\n'
+
+        return result
+
+    def print_map(self):
+        print(self.__map_to_string())
 
     # def print_map(self):
     #     with open(self.__file, 'r') as f:
@@ -55,147 +66,93 @@ class Dungeon:
         return False
 
     def spawn(self, hero):
-        matrix = self.__read_file()
-
         hero_position = self.__find_hero_position()
 
-        self.x = hero_position[0]
-        self.y = hero_position[1]
+        self.__x = hero_position[0]
+        self.__y = hero_position[1]
 
-        for i in range(hero_position[0], len(map)):
-            for j in range(hero_position[1], len(map[0])):
-                if map[i][j] == '.' or map[i][j] == 'T' or map[i][j] == 'S':
-                    map[i][j] = 'H'
+        for i in range(hero_position[0], len(self.__level_map)):
+            for j in range(hero_position[1], len(self.__level_map[0])):
+                if self.__level_map[i][j] == '.' or self.__level_map[i][j] ==\
+                   'T' or self.__level_map[i][j] == 'S':
+                    self.__level_map[i][j] = 'H'
                     hero.set_x_position(i)
                     hero.set_y_position(j)
-                    map[hero_position[0]][hero_position[1]]
-                    print(map)
+                    self.__x = i
+                    self.__y = j
+                    # print('{}   {}'.format(self.__x, self.__y))
+                    self.__level_map[hero_position[0]][hero_position[1]]
                     return True
 
         return False
 
+    def __get_map_size(self):
+        print(len(self.__level_map))
+        return len(self.__level_map)
+
+    def __get_line_size(self):
+        return len(self.__level_map[0])
+
     def move_hero(self, direction):
-        if direction == "right":
-            if self.len_column > self.x:
-                if self.matrix[self.x][self.y + 1] == "#":
-                    print("False")
-
-                if self.matrix[self.x][self.y + 1] == ".":
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y + 1], "H", 1)
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.y += 1
-                    print("True")
-                if self.matrix[self.x][self.y + 1] == "T":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y + 1], "H", 1)
-
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y], ".", 1)
-                    self.x += 0
-                    self.y += 1
-                    print("Found treasure!")
-            else:
-                print("False")
-
-        if direction == "down":
-            if self.len_row > self.x:
-                if self.matrix[self.x + 1][self.y] == "#":
-                    print("False")
-
-                if self.matrix[self.x + 1][self.y] == ".":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.matrix[self.x + 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x + 1][self.y], "H", 1)
-                    self.matrix[self.x + 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.x += 1
-                    self.y += 0
-                    print("True")
-                if self.matrix[self.x + 1][self.y] == "T":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.matrix[self.x + 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x + 1][self.y], ".", 1)
-                    self.matrix[self.x + 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x+1][self.y], "H", 1)
-                    print("Found treasure!")
-                    self.x += 1
-                    self.y += 0
-            else:
-                print("False")
-        if direction == "left":
-            if self.len_column > self.x and self.x >= 0:
-                if self.matrix[self.x][self.y - 1] == "#":
-                    print("False")
-
-                if self.matrix[self.x][self.y - 1] == ".":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y - 1], "H", 1)
-
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y], ".", 1)
-                    self.y -= 1
-                    print("True")
-                if self.matrix[self.x][self.y - 1] == "T":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y - 1], "H", 1)
-
-                    self.matrix[self.x] = self.matrix[self.x].replace(
-                        self.matrix[self.x][self.y], ".", 1)
-                    self.y -= 1
-                    print("Found treasure!")
-            else:
-                print("False")
-
-        if direction == "down":
-            if self.len_row > self.x:
-                if self.matrix[self.x - 1][self.y] == "#":
-                    print("False")
-
-                if self.matrix[self.x - 1][self.y] == ".":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.matrix[self.x + 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x + 1][self.y], "H", 1)
-                    self.matrix[self.x + 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.x -= 1
-                    self.y += 0
-                    print("True")
-                if self.matrix[self.x - 1][self.y] == "T":
-                    self.matrix[self.x] = self.matrix[self.x]\
-                        .replace(self.matrix[self.x][self.y], ".", 1)
-                    self.matrix[self.x - 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x + 1][self.y], ".", 1)
-                    self.matrix[self.x - 1] = self.matrix[self.x + 1]\
-                        .replace(self.matrix[self.x+1][self.y], "H", 1)
-                    print("Found treasure!")
-                    self.x -= 1
-            else:
-                print("False")
-
-        # print(self.matrix)
-
-    def map_size(self):
-        data = open(self.__file, 'r')
-        self.matrix = data.readlines()
-        self.len_row = len(self.matrix)
-        self.len_column = len(self.matrix[0]) - 1
-        data.close()
-
-    def map_into_list(self):
-        with open(self.__file, 'r') as f:
-            string = f.read()
-        string = string.split('\n')
-        string = string[:-1]
-        print()
+        if direction == 'up':
+            if self.__x - 1 < 0:
+                print('Flase')
+            elif self.__level_map[self.__x - 1][self.__y] == '#':
+                print('Flase')
+            elif self.__level_map[self.__x - 1][self.__y] == '.':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x - 1][self.__y] = 'H'
+                self.__x -= 1
+                print('True')
+            elif self.__level_map[self.__x - 1][self.__y] == 'T':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x - 1][self.__y] = 'H'
+                self.__x -= 1
+                print('Found Treasure')
+        elif direction == 'right':
+            if self.__y + 1 >= self.__get_line_size():
+                print('False')
+            elif self.__level_map[self.__x][self.__y + 1] == '#':
+                print('Flase')
+            elif self.__level_map[self.__x][self.__y + 1] == '.':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x][self.__y + 1] = 'H'
+                self.__y += 1
+                print('True')
+            elif self.__level_map[self.__x][self.__y + 1] == 'T':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x][self.__y + 1] = 'H'
+                self.__y += 1
+                print('Found Treasure')
+        elif direction == 'down':
+            if self.__x + 1 >= self.__get_map_size():
+                print('False')
+            elif self.__level_map[self.__x + 1][self.__y] == '#':
+                print('Flase')
+            elif self.__level_map[self.__x + 1][self.__y] == '.':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x + 1][self.__y] = 'H'
+                self.__x += 1
+                print('True')
+            elif self.__level_map[self.__x + 1][self.__y] == 'T':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x + 1][self.__y] = 'H'
+                self.__x += 1
+                print('Found Treasure')
+        elif direction == 'left':
+            if self.__y - 1 < 0:
+                print('False')
+            elif self.__level_map[self.__x][self.__y - 1] == '#':
+                print('Flase')
+            elif self.__level_map[self.__x][self.__y - 1] == '.':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x][self.__y - 1] = 'H'
+                self.__y -= 1
+                print('True')
+            elif self.__level_map[self.__x][self.__y - 1] == 'T':
+                self.__level_map[self.__x][self.__y] = '.'
+                self.__level_map[self.__x][self.__y - 1] = 'H'
+                self.__y -= 1
+                print('Found Treasure')
+        else:
+            print('False')
