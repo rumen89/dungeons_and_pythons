@@ -87,7 +87,6 @@ class Dungeon:
         return False
 
     def __get_map_size(self):
-        print(len(self.__level_map))
         return len(self.__level_map)
 
     def __get_line_size(self):
