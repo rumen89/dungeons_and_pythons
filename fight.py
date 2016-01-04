@@ -34,7 +34,7 @@ class Fight:
                       'blink', 'bold']), colored("WON!!!", 'cyan', attrs=['blink', 'bold']))
                 break
             if not self.__enemy.location() == self.__enemy.location():
-                self.__enemy.moove_towards_hero()
+                self.__enemy.move_towards_hero()
             else:
                 print(colored("Enemy", 'red', attrs=['bold']), "attacks for", colored(
                     self.__enemy.get_damage(), 'red', attrs=['bold']), "dmg")

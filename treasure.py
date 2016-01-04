@@ -30,8 +30,8 @@ class Treasure:
         treasures = json.load(treasure_file)
         self.__treasure_type = self.__random_treasure_type(treasures, value)
 
-        ran = random.randint(0, len(treasures['treasures'][value][self.__treasure_type]) - 1)
-        print(treasures['treasures'][value][self.__treasure_type][ran])
+        ran = random.randint(0, len(treasures['treasures'][
+                             value][self.__treasure_type]) - 1)
         return self.__create_treasure(self.__treasure_type, treasures, ran, value)
 
     def __create_treasure(self, type, treasures, ran, value):

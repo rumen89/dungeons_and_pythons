@@ -23,12 +23,6 @@ class Character:
     def get_y_position(self):
         return self.__y_position
 
-    def is_alive(self):
-        return self.__health > 0
-
-    def can_cast(self):
-        return self.__mana > 0
-
     def get_health(self):
         return self.__health
 
@@ -46,6 +40,12 @@ class Character:
 
     def set_current_attack_method(self, method):
         self.__current_attack_method = method
+
+    def is_alive(self):
+        return self.__health > 0
+
+    def can_cast(self):
+        return self.__mana > 0
 
     def lower_mana(self, mana_points):
         if self.__mana - mana_points <= 0:

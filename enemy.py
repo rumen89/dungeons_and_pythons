@@ -10,5 +10,5 @@ class Enemy(Character):
     def get_damage(self):
         return self.__damage
 
-    def moove_towards_hero(self, Hero):
+    def move_towards_hero(self, Hero):
         pass
