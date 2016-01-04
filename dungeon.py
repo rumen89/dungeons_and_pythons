@@ -177,3 +177,6 @@ class Dungeon:
             print('Found mana potion. Hero mana is max.')
         elif treasure == 'weapon':
             pass
+
+    def get_position(self, x, y):
+        return self.__level_map[x][y]
