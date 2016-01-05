@@ -28,7 +28,9 @@ class DungeonsAndPythons:
             if command == "exit":
                 break
             else:
-                self.__process_command(command)
+                exit = self.__process_command(command)
+                if exit == "exit":
+                    break
 
     def __process_command(self, command):
 
@@ -38,25 +40,38 @@ class DungeonsAndPythons:
             if(self.__check_next(command) == "Move"):
                 if command == "up":
                     if self.dungeon.move_hero("up"):
+                        print('You went', command)
                         self.hero.set_y_position(
                             self.hero.get_y_position() - 1)
+                    else:
+                        print('You hit the wall')
+
                 elif command == "down":
                     if self.dungeon.move_hero("down"):
+                        print('You went', command)
                         self.hero.set_y_position(
                             self.hero.get_y_position() + 1)
+                    else:
+                        print('You hit the wall')
                 elif command == "left":
                     if self.dungeon.move_hero("left"):
+                        print('You went', command)
                         self.hero.set_x_position(
                             self.hero.get_x_position() - 1)
+                    else:
+                        print('You hit the wall')
                 elif command == "right":
                     if self.dungeon.move_hero("right"):
+                        print('You went', command)
                         self.hero.set_x_position(
                             self.hero.get_x_position() + 1)
+                    else:
+                        print('You hit the wall')
                 else:
                     print("Wrong command")
             elif(self.__check_next(command) == "Exit"):
                 print("Congratz")
-                return
+                return "exit"
             else:
                 pass
 
@@ -77,7 +92,6 @@ class DungeonsAndPythons:
             return
 
         position_symbol = self.dungeon.get_position(x, y)
-        print(x, y, position_symbol)
         if position_symbol is not None:
             return self.__commit_anction(position_symbol)
         else:
@@ -95,6 +109,7 @@ class DungeonsAndPythons:
             return "Move"
 
         elif position_symbol == 'T':
+            self.__process_treasure()
             return "Move"
         elif position_symbol == 'G':
             return "Exit"
@@ -102,6 +117,33 @@ class DungeonsAndPythons:
             return "Move"
         else:
             return
+
+    def __process_treasure(self):
+        treasure = Treasure()
+        print('You fount a treasure type:', treasure.get_treasure_type())
+
+        if treasure.get_treasure_type() == "weapons":
+            print(treasure.loot_treasure())
+            answer = input("Do you want to equip this weapon? y/n >>")
+            if answer == 'y' or answer == 'yes':
+                self.hero.equip(treasure.loot_treasure())
+        elif treasure.get_treasure_type() == "spells":
+            print(treasure.loot_treasure().get_name(), treasure.loot_treasure().get_damage(), 'dmg')
+            answer = input("Do you want to learn this spell? y/n >>")
+            if answer == 'y' or answer == 'yes':
+                self.hero.learn(treasure.loot_treasure())
+        elif treasure.get_treasure_type() == "mana":
+            print(treasure.loot_treasure(), 'points')
+            answer = input("Drink mana potion? y/n >>")
+            if answer == 'y' or answer == 'yes':
+                self.hero.take_mana(treasure.loot_treasure)
+                print("Mana points: ", self.hero.get_mana())
+        elif treasure.get_treasure_type() == "health":
+            print(treasure.loot_treasure(), 'points')
+            answer = input("Drink health potion? y/n >>")
+            if answer == 'y' or answer == 'yes':
+                self.hero.take_healing(treasure.loot_treasure())
+                print("Health points: ", self.hero.get_health())
 
 if __name__ == '__main__':
     dp = DungeonsAndPythons()
