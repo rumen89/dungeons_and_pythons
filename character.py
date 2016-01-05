@@ -54,11 +54,11 @@ class Character:
             self.__mana -= mana_points
 
     def take_healing(self, healing_points):
-        if not is_alive():
+        if not self.is_alive():
             return False
         else:
             if self.__health + healing_points > self.__max_health:
-                self.__health == healing_points
+                self.__health = self.__max_health  # change it
             else:
                 self.__health += healing_points
             return True
