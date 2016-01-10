@@ -14,6 +14,7 @@ class Treasure:
     def get_treasure_type(self):
         return self.__treasure_type
 
+
     def loot_treasure(self):
         return self.__treasure
 

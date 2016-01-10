@@ -15,15 +15,13 @@ class Spell:
     def get_mana_cost(self):
         return self._mana_cost
 
-<<<<<<< HEAD
+
     def get_cast_rang(self):
         return self._cast_range
-=======
+
     def get_cast_range(self):
 
         return self._cast_range
 
     def decrease_mana(self):
         mana = hero.get_mana()
-
->>>>>>> c3b262a56f6026d0dc8d44f3408074108d91c70b

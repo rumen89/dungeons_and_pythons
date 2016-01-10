@@ -61,11 +61,9 @@ class Dungeon:
     #         return False
 
     def find_hero_position(self):
-        map = self.__read_file()
-
-        for x in range(0, len(map)):
-            for y in range(0, len(map[0])):
-                if map[x][y] == 'S'or map[x][y] == 'H':
+        for x in range(0, len(self.__level_map)):
+            for y in range(0, len(self.__level_map[0])):
+                if self.__level_map[x][y] == 'S'or self.__level_map[x][y] == 'H':
                     return (x, y)
         return False
 
@@ -213,3 +211,34 @@ class Dungeon:
         except IndexError:
             return None
 
+    def hero_attack(self):
+        x_hero = self.find_hero_position()[0]
+        y_hero = self.find_hero_position()[1]
+        len_row = len(self.__level_map)
+        len_column = len(self.__level_map[0]) - 1
+        if x_hero - 2 >= 0 and y_hero - 2 >= 0:
+            if self.__level_map[x_hero - 2][x_hero - 2] == "E":
+                print("FIghhtttt")
+        if x_hero + 1 <= len_row and y_hero - 1 >= 0:
+            if self.__level_map[x_hero + 1][y_hero - 1] == "E":
+                print("FIghhtttt")
+        if x_hero + 2 <= len_row:
+            if self.__level_map[x_hero + 2][y_hero] == "E":
+                print("FIghhtttt")
+        if x_hero + 1 <= len_row and y_hero + 1 <= len_column:
+            if self.__level_map[x_hero + 1][y_hero + 1] == "E":
+                print("FIghhtttt")
+        if y_hero + 2 <= len_column:
+            if self.__level_map[x_hero][y_hero + 2] == "E":
+                print("FIghhtttt")
+        if x_hero - 1 >= 0 and y_hero + 2 <= len_column:
+            if self.__level_map[x_hero - 1][y_hero + 2] == "E":
+                print("FIghhtttt")
+        if x_hero - 2 >= 0:
+            if self.__level_map[x_hero - 2][y_hero] == "E":
+                print("FIghhtttt")
+        if x_hero - 1 >= 0 and y_hero >= 0:
+            if self.__level_map[x_hero - 1][y_hero - 1] == "E":
+                print("FIghhtttt")
+        else:
+            print("Nothing in casting range 2")

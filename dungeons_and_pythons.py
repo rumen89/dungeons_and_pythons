@@ -5,7 +5,8 @@ from weapon import Weapon
 from spell import Spell
 from treasure import Treasure
 from fight import Fight
-from dungeon import Dungeon
+from dungeon_2 import Dungeon
+from termcolor import colored
 
 
 class DungeonsAndPythons:
@@ -18,12 +19,18 @@ class DungeonsAndPythons:
         self.dungeon.spawn(self.hero)
 
     def main(self):
-        print("Dungeons And Pythons")
+        print(colored("Hello and Welcome to Dungeons And Pythons!", 'cyan', attrs=['bold']))
+        print(colored("Choose an option: ", 'red', attrs=['bold']))
+        print(colored("1.",'red', attrs=['bold']) + " - left/right/down/up - to move hero.")
+        print(colored("2.",'red', attrs=['bold']) + " - to print the map")
+        print(colored("3.",'red', attrs=['bold']) + " - exit - to quit the game")
+        print(colored(" Good Luck ♧",'green', attrs=['bold']))
         self.dungeon.print_map()
         self.__start_level()
 
     def __start_level(self):
         while True:
+            #self.dungeon.hero_attack()
             command = input("Command>>")
             if command == "exit":
                 break
@@ -33,7 +40,6 @@ class DungeonsAndPythons:
                     break
 
     def __process_command(self, command):
-
         if command == "print":
             self.dungeon.print_map()
         else:
@@ -136,7 +142,7 @@ class DungeonsAndPythons:
             print(treasure.loot_treasure(), 'points')
             answer = input("Drink mana potion? y/n >>")
             if answer == 'y' or answer == 'yes':
-                self.hero.take_mana(treasure.loot_treasure)
+                self.hero.take_mana(treasure.loot_treasure())
                 print("Mana points: ", self.hero.get_mana())
         elif treasure.get_treasure_type() == "health":
             print(treasure.loot_treasure(), 'points')
@@ -148,3 +154,4 @@ class DungeonsAndPythons:
 if __name__ == '__main__':
     dp = DungeonsAndPythons()
     dp.main()
+    

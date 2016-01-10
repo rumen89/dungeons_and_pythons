@@ -29,6 +29,9 @@ class Character:
     def get_mana(self):
         return self.__mana
 
+    def set_mana(self,mana):
+        self.__mana = mana
+
     def get_spell(self):
         return self.__spell
 
@@ -64,7 +67,7 @@ class Character:
             return True
 
     def take_mana(self, mana_points):
-        if mana_points > self.__max_mana:
+        if mana_points + self.__mana >= self.__max_mana:
             self.__mana = self.__max_mana
         else:
             self.__mana += mana_points
